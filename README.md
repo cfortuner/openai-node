@@ -74,11 +74,15 @@ try {
 
 ### Streaming completions
 
-Streaming completions (`stream=true`) are not natively supported in this package yet, but [a workaround exists](https://github.com/openai/openai-node/issues/18#issuecomment-1369996933) if needed.
+Streaming completions (`stream=true`) is now natively supported in this package, please find [an example](https://github.com/openai/openai-node/issues/18#issuecomment-1371279689) if needed.
 
 ## Upgrade guide
 
 All breaking changes for major version releases are listed below.
+
+### 4.0.0
+
+- Upgrade to axios 1.x
 
 ### 3.0.0
 
