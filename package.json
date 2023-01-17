@@ -16,9 +16,21 @@
   "author": "OpenAI",
   "license": "MIT",
   "main": "./dist/index.js",
+  "module": "./dist-esm/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist-esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "tsc --outDir dist/"
+    "clean": "rimraf ./dist ./dist-esm",
+    "prebuild": "npm run clean",
+    "build": "tsc -p . && tsconfig-to-dual-package ./tsconfig.esm.json",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "axios": "^0.26.0",
@@ -26,6 +38,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.11.5",
+    "rimraf": "^3.0.2",
+    "tsconfig-to-dual-package": "^1.1.0",
     "typescript": "^4.9.4"
   }
 }
