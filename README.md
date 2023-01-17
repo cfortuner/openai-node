@@ -15,18 +15,23 @@ $ npm install openai
 The library needs to be configured with your account's secret key, which is available on the [website](https://beta.openai.com/account/api-keys). We recommend setting it as an environment variable. Here's an example of initializing the library with the API key loaded from an environment variable and creating a completion:
 
 ```javascript
-const { Configuration, OpenAIApi } = require("openai");
+import { createConfiguration, OpenAIApi } from "openai";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const configurationOpts = {
+  authMethods: {
+    apiKeyAuth: {
+      accessToken: process.env.OPENAI_API_KEY,
+    },
+  },
+};
+const configuration = createConfiguration(configurationOpts);
 const openai = new OpenAIApi(configuration);
 
 const completion = await openai.createCompletion({
   model: "text-davinci-003",
   prompt: "Hello world",
 });
-console.log(completion.data.choices[0].text);
+console.log(completion.choices[0].text);
 ```
 
 Check out the [full API documentation](https://beta.openai.com/docs/api-reference?lang=node.js) for examples of all the available functions.
@@ -79,6 +84,10 @@ Streaming completions (`stream=true`) is now natively supported in this package,
 ## Upgrade guide
 
 All breaking changes for major version releases are listed below.
+
+### 5.0.0
+
+- Upgrade to fetch
 
 ### 4.0.0
 
